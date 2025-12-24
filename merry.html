@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>🎄 Merry Christmas!</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<style>
+/* ===== YOUR CSS ===== */
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+height:100vh;
+background:radial-gradient(circle at top,#003322,#000);
+display:flex;
+justify-content:center;
+align-items:center;
+overflow:hidden;
+font-family:Arial,sans-serif;
+color:white
+}
+.snow{
+position:fixed;inset:0;
+background-image:radial-gradient(white 1px,transparent 1px);
+background-size:40px 40px;
+animation:snow 15s linear infinite;
+opacity:.5
+}
+@keyframes snow{from{background-position:0 0}to{background-position:0 1000px}}
+.scene{position:relative;width:400px;height:600px}
+@media(max-width:500px){.scene{transform:scale(.8)}}
+.star{
+position:absolute;top:0;left:50%;
+transform:translateX(-50%);
+font-size:52px;color:gold;
+animation:sparkle 1.5s infinite alternate
+}
+@keyframes sparkle{from{text-shadow:0 0 10px gold}to{text-shadow:0 0 35px gold}}
+.garland{position:absolute;width:100%;height:100%;pointer-events:none}
+.garland path{fill:none;stroke:gold;stroke-width:4;stroke-dasharray:6 10}
+.tree{position:absolute;bottom:0;left:50%;transform:translateX(-50%)}
+.layer{position:relative;width:0;height:0;margin:0 auto;
+border-left:solid transparent;border-right:solid transparent;
+border-bottom:solid #0f6b2f}
+.top{border-left-width:80px;border-right-width:80px;border-bottom-width:120px}
+.middle{margin-top:-40px;border-left-width:120px;border-right-width:120px;border-bottom-width:160px}
+.bottom{margin-top:-40px;border-left-width:160px;border-right-width:160px;border-bottom-width:200px}
+.light{
+position:absolute;width:12px;height:12px;border-radius:50%;
+animation:blink 2s infinite;box-shadow:0 0 10px currentColor
+}
+@keyframes blink{
+0%{background:red}33%{background:green}
+66%{background:blue}100%{background:red}
+}
+.trunk{width:50px;height:70px;background:#6b3e26;margin:0 auto}
+.typing{position:absolute;top:80px;width:100%;text-align:center;font-size:26px}
+.names{position:absolute;top:120px;width:100%;text-align:center;font-size:20px;color:#ffeb3b}
+.countdown{position:absolute;top:160px;width:100%;text-align:center;font-size:16px}
+.share{
+position:absolute;bottom:-90px;left:50%;
+transform:translateX(-50%);
+padding:10px 20px;background:#d32f2f;color:white;
+border:none;border-radius:20px;font-size:16px
+}
+.santa{position:fixed;top:60px;left:-100px;font-size:48px;animation:fly 15s linear infinite}
+@keyframes fly{from{left:-100px}to{left:110%}}
+</style>
+</head>
+
+<body>
+<div class="snow"></div>
+
+<div class="scene">
+<div class="star">★</div>
+
+<svg class="garland" viewBox="0 0 400 600">
+<path d="M80 260 Q200 300 320 260"/>
+<path d="M60 340 Q200 390 340 340"/>
+<path d="M40 420 Q200 480 360 420"/>
+</svg>
+
+<div class="tree">
+<div class="layer top"><span class="light"></span><span class="light"></span><span class="light"></span></div>
+<div class="layer middle"><span class="light"></span><span class="light"></span><span class="light"></span><span class="light"></span></div>
+<div class="layer bottom"><span class="light"></span><span class="light"></span><span class="light"></span><span class="light"></span><span class="light"></span></div>
+<div class="trunk"></div>
+</div>
+
+<div class="typing"></div>
+<div class="names"></div>
+<div class="countdown"></div>
+<button class="share">🎁 Share</button>
+<div class="santa">🎅</div>
+</div>
+
+<script>
+/* ===== YOUR JS ===== */
+const typingEl=document.querySelector(".typing");
+const text="🎄 Happy Xmas 🎄";let i=0;
+(function type(){if(i<=text.length){typingEl.textContent=text.slice(0,i++);setTimeout(type,120)}})();
+
+document.querySelector(".names").textContent="Wishing you joy, Everyone!";
+
+const countdownEl=document.querySelector(".countdown");
+setInterval(()=>{
+const now=new Date();
+const year=now.getMonth()===11&&now.getDate()>25?now.getFullYear()+1:now.getFullYear();
+const christmas=new Date(`December 25, ${year}`);
+const diff=christmas-now;
+const d=Math.floor(diff/86400000);
+const h=Math.floor(diff/3600000)%24;
+const m=Math.floor(diff/60000)%60;
+const s=Math.floor(diff/1000)%60;
+countdownEl.textContent=`⏳ ${d}d ${h}h ${m}m ${s}s until Christmas`;
+},1000);
+</script>
+</body>
+</html>
